@@ -1,0 +1,49 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper">
+    <div class="login-register fondo shadow-lg lazyload">
+        <div class="login-box card mt-0" style="opacity: 0.9; box-shadow: 5em; border-radius: 3em;">
+            <div class="card-body">
+                <form *ngIf="!recuperarPassword" class="form-horizontal form-material form-group" id="loginform"
+                    (ngSumit)="autenticarUsuario( login )" #login="ngForm">
+                    <div class="d-flex justify-content-center">
+                        <i class="fas fa-user-circle text-primary img-user"></i>
+                    </div>
+                    <div class="form-group mt-3">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" required maxlength=50 minlength=5
+                                placeholder="Usuario" [(ngModel)]="usuario" name="usuario" #nomUsu="ngModel"
+                                autocomplete="username" [readonly]="bloquearUsuarioPassword">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" placeholder="Contraseña" [(ngModel)]="password"
+                                name="password" #passw="ngModel" required autocomplete="current-password"
+                                [readonly]="bloquearUsuarioPassword" (keydown.enter)="autenticarUsuario(login)">
+                        </div>
+                    </div>
+                    <div class="form-group text-center">
+                        <div class="col-xs-12 p-b-20">
+                            <button class="btn btn-primary btn btn-block btn-rounded" type="button" (click)="autenticarUsuario( login )">
+                              <i class="fas fa-spinner fa-pulse mr-2" *ngIf="trabajando"></i> Entrar
+                              <!-- <span *ngIf="!trabajando"></span> -->
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <a id="to-recover" class="text-dark pull-right" style="cursor: pointer;"
+                                [routerLink]="['/seguridadPassword/recuperar']">
+                                <i class="fa fa-lock mr-3"></i> Olvide contraseña</a>
+                        </div>
+                    </div>
+                </form>
+                <div class="alert-danger" *ngIf="error != null && error.length > 0">
+                    {{ error }}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

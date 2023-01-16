@@ -1,0 +1,249 @@
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.popup-corte {
+  scroll-behavior: auto;
+  display: block;
+  background-color: white;
+  border-radius: 1rem 1rem !important;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
+@media (min-with: 800px) {
+  .popup-corte {
+    max-width: 95%;
+  }
+}
+
+@media (min-with: 1024px) {
+  .popup-corte {
+    max-width: 90%;
+  }
+}
+
+@media (min-with: 1200px) {
+  .popup-corte {
+    max-width: 85%;
+  }
+}
+
+@media (min-with: 1600px) {
+  .popup-corte {
+    max-width: 80%;
+  }
+}
+
+@media (max-height: 299px) {
+  .popup-corte {
+    max-height: 180px;
+    min-height: 180px;
+  }
+}
+
+@media (min-height: 300px) {
+  .popup-corte {
+    max-height: 240px;
+    min-height: 240px;
+  }
+}
+
+@media (min-height: 350px) {
+  .popup-corte {
+    max-height: 300px;
+    min-height: 300px;
+  }
+}
+
+@media (min-height: 400px) {
+  .popup-corte {
+    max-height: 340px;
+    min-height: 340px;
+  }
+}
+
+@media (min-height: 450px) {
+  .popup-corte {
+    max-height: 390px;
+    min-height: 390px;
+  }
+}
+
+@media (min-height: 500px) {
+  .popup-corte {
+    max-height: 470px;
+    min-height: 470px;
+  }
+}
+
+@media (min-height: 600px) {
+  .popup-corte {
+    max-height: 520px;
+    min-height: 520px;
+  }
+}
+
+@media (min-height: 650px) {
+  .popup-corte {
+    max-height: 570px;
+    min-height: 570px;
+  }
+}
+
+@media (min-height: 700px) {
+  .popup-corte {
+    max-height: 620px;
+    min-height: 620px;
+  }
+}
+
+@media (min-height: 750px) {
+  .popup-corte {
+    max-height: 670px;
+    min-height: 670px;
+  }
+}
+
+@media (min-height: 800px) {
+  .popup-corte {
+    max-height: 720px;
+    min-height: 720px;
+  }
+}
+
+@media (min-height: 850px) {
+  .popup-corte {
+    max-height: 770px;
+    min-height: 770px;
+  }
+}
+
+@media (min-height: 900px) {
+  .popup-corte {
+    max-height: 820px;
+    min-height: 820px;
+  }
+}
+
+@media (min-height: 950px) {
+  .popup-corte {
+    max-height: 870px;
+    min-height: 870px;
+  }
+}
+
+@media (min-height: 1000px) {
+  .popup-corte {
+    max-height: 920px;
+    min-height: 920px;
+  }
+}
+
+table {
+  min-width: 900px;
+  width: 100%;
+}
+
+
+.mat-column-nIdCorte {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 10% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-dFecha_Registro {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 10% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-bPagado {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 8% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-fechaCorte {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 12% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-nTotal {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 12% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.mat-column-bActivo {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 28% !important;
+  width: 8% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}

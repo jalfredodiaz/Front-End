@@ -1,0 +1,105 @@
+<div class="container container-sm container-md container-lg contenido text-center">
+  <h3 class="mb-2">Consulta Solicitudes de Prestamo</h3>
+  <div class="d-flex justify-content-between text-left">
+    <mat-form-field class="col-sm col-md col-lg col-xl" appearance="standard">
+      <mat-label>Filtrar</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ingrese texto para filtrar las solicitudes de prestamo." #input>
+    </mat-form-field>
+    <div class="row">
+      <div class="col d-flex align-items-center">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="buscar()">
+          <i class="fa-solid fa-rotate" [ngClass]="{'fa-spin': actualizando}"></i>
+          Actualizar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-left">
+      <div class="mat-elevation-z8 height-sm height-nm height-md height-lg tableFixHead">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+          <!-- Codigo Column -->
+          <ng-container matColumnDef="nIdPrestamo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por codigo"> Codigo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{ row.nIdPrestamo }} </td>
+          </ng-container>
+
+          <!-- Rubro Column -->
+          <ng-container matColumnDef="NombreRubro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Rubro"> Rubro
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.NombreRubro}} </td>
+          </ng-container>
+
+          <!-- Empleado Column -->
+          <ng-container matColumnDef="NombreEmpleado">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Empleado"> Empleado
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.NombreEmpleado}} </td>
+          </ng-container>
+
+          <!-- Importe Column -->
+          <ng-container matColumnDef="nImporte">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Importe"> Importe
+            </th>
+            <td mat-cell *matCellDef="let row"> {{ row.nImporte | FormatearNumero }} </td>
+          </ng-container>
+
+          <!-- Saldo Column -->
+          <ng-container matColumnDef="nSaldo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Saldo"> Saldo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{ row.nSaldo | FormatearNumero }} </td>
+          </ng-container>
+
+          <!-- Con Corte Column -->
+          <ng-container matColumnDef="bConCorte">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Con Corte"> Con Corte
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.bConCorte | SiNo }} </td>
+          </ng-container>
+
+          <!-- Fecha Cobro Column -->
+          <ng-container matColumnDef="dFechaCobro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Fecha Cobro"> Fecha Cobro
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.dFechaCobro | date: 'yyyy-MM-dd' }} </td>
+          </ng-container>
+
+          <!-- Fecha Registro Column -->
+          <ng-container matColumnDef="dFecha_Registro">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Fecha Registro"> Fecha Registro
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.dFecha_Registro | date: 'yyyy-MM-dd' }} </td>
+          </ng-container>
+
+          <!-- Activo Column -->
+          <ng-container matColumnDef="bActivo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por estatus"> Activo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.bActivo | SiNo }} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="accion">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
+            <td mat-cell *matCellDef="let row">
+              <!-- <span class="pointer" (click)="editar(row)"><i class="fa-solid fa-file-pen"></i></span> -->
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No se encontraron datos para "{{input.value}}"</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecciona una pagina" [showFirstLastButtons]="true">
+  </mat-paginator>
+</div>

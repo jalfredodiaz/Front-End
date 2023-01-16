@@ -1,0 +1,25 @@
+<div class="fondo-negro oculto" [ngClass]="{'d-flex align-items-center': visible}">
+  <div class="container-sm container container-md container-lg popup-captura-sm" tabindex="-1" role="dialog">
+    <div class="row mt-2">
+      <div class="col font-weight-bold">
+        <h2>Aumentar Sueldo</h2>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-2 mb-2 pt-3">
+      <app-departamento-ayuda></app-departamento-ayuda>
+      <mat-form-field class="col-sm-4 col-md-2 col-lg-2">
+        <mat-label>Incremento %</mat-label>
+        <input type="number" matInput placeholder="Porcentaje" [(ngModel)]="porcentajeIncremento"
+            #porcentaje="ngModel" name="porcentaje" id="porcentaje">
+      </mat-form-field>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-2 mb-2">
+      <div class="col text-right">
+        <button type="button" class="btn btn-outline-primary" (click)="aumentarSueldo()">Guardar</button>
+        <button type="button" class="btn btn-outline-secondary ml-2" (click)="ocultar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

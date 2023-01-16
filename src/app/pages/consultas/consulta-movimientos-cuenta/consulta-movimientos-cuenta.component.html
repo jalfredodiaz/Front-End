@@ -1,0 +1,151 @@
+<div class="container container-sm container-md container-lg contenido text-center">
+  <h3 class="mb-2">Consulta Movimientos de Cuentas</h3>
+  <div class="row">
+    <app-cuentas-ayuda class="col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2" [(codigo)]="codigoCuenta" titulo="Cuenta"></app-cuentas-ayuda>
+    <mat-form-field class="col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha Inicio</mat-label>
+      <input matInput [matDatepicker]="dfechaIni" [(ngModel)]="fechaIni" [ngModelOptions]="{standalone: true}">
+      <mat-datepicker-toggle matSuffix [for]="dfechaIni"></mat-datepicker-toggle>
+      <mat-datepicker #dfechaIni startView="year">
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Modificar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-3 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha Fin</mat-label>
+      <input matInput [matDatepicker]="dfechaFin" [(ngModel)]="fechaFin" [ngModelOptions]="{standalone: true}">
+      <mat-datepicker-toggle matSuffix [for]="dfechaFin"></mat-datepicker-toggle>
+      <mat-datepicker #dfechaFin startView="year">
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Modificar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+    <div class="col">
+      <button *ngIf="resultado.SaldoInicial == 0" type="button" class="btn btn-primary mr-2"
+        (click)="consultar()">
+        <i class="fa-solid fa-magnifying-glass mr-2" [ngClass]="{'fa-beat-fade': actualizando}"></i>Consultar
+      </button>
+      <button type="button" class="btn btn-warning" (click)="nuevo()">
+        <i class="fa-solid fa-broom mr-2"></i>Limpiar
+      </button>
+    </div>
+  </div>
+  <div hidden class="row">
+    <div class="col text-left">
+      <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 bg-light font-weight-bold" *ngIf="resultado.SaldoInicial > 0">
+        <mat-label>Saldo Inicial</mat-label>
+        <input type="text" matInput placeholder="Saldo Inicial" readonly [(localizedNumericInput)]="resultado.SaldoInicial">
+      </mat-form-field>
+      <span *ngIf="resultado.SaldoInicial > 0" class="font-weight-bold mr-2 ml-2">+</span>
+      <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 bg-light font-weight-bold" *ngIf="resultado.SaldoInicial > 0">
+        <mat-label>Abonos</mat-label>
+        <input type="text" matInput placeholder="Saldo Inicial" readonly [(localizedNumericInput)]="totalAbonos">
+      </mat-form-field>
+      <span *ngIf="resultado.SaldoInicial > 0"class="font-weight-bold mr-2 ml-2">-</span>
+      <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 bg-light font-weight-bold" *ngIf="resultado.SaldoInicial > 0">
+        <mat-label>Cargos</mat-label>
+        <input type="text" matInput placeholder="Saldo Inicial" readonly [(localizedNumericInput)]="totalCargos">
+      </mat-form-field>
+      <span *ngIf="resultado.SaldoInicial > 0"class="font-weight-bold mr-2 ml-2">=</span>
+      <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 bg-light font-weight-bold" *ngIf="resultado.SaldoInicial > 0">
+        <mat-label>Saldo</mat-label>
+        <input type="text" matInput placeholder="Saldo" readonly [(localizedNumericInput)]="saldo">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row mb-5 mt-3">
+    <div class="col text-left">
+      <div class="mat-elevation-z8 height-sm height-nm height-md height-lg tableFixHead2">
+        <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+          <!-- nIdMovimiento Column -->
+          <ng-container matColumnDef="nIdMovimiento">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por codigo"> Folio
+            </th>
+            <td mat-cell *matCellDef="let row"> {{ row.nIdMovimiento }} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <!-- Fecha Cobro Column -->
+          <ng-container matColumnDef="Fecha" class="col-1">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Fecha Registro">
+              Fecha
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.Fecha | date: 'yyyy-MM-dd hh:mm:ss' }} </td>
+            <td mat-footer-cell *matFooterCellDef></td>
+          </ng-container>
+
+          <!-- cTipoMovimiento Column -->
+          <ng-container matColumnDef="cTipoMovimiento">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Tipo Movimiento"> Tipo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.cTipoMovimiento}} </td>
+            <td mat-footer-cell *matFooterCellDef>TOTALES:</td>
+          </ng-container>
+
+          <!-- cCategoria Column -->
+          <ng-container matColumnDef="cCategoria">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Categoría"> Categoría
+            </th>
+            <td mat-cell *matCellDef="let row"> {{ row.cCategoria }} </td>
+            <td mat-footer-cell *matFooterCellDef>Saldo Inicial:</td>
+          </ng-container>
+
+          <!-- idReferencia Column -->
+          <ng-container matColumnDef="idReferencia">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Referencia"> Referencia
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.idReferencia}} </td>
+            <td mat-footer-cell *matFooterCellDef>{{ resultado.SaldoInicial | FormatearNumero }}</td>
+          </ng-container>
+
+          <!-- nIdMovimientoCancela Column -->
+          <ng-container matColumnDef="nIdMovimientoCancela">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Id Cancelacion"> Id Canc.
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.nIdMovimientoCancela}} </td>
+
+            <td mat-footer-cell *matFooterCellDef>  </td>
+          </ng-container>
+
+          <!-- Cargo Column -->
+          <ng-container matColumnDef="Cargo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Cargo"> Cargo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.Cargo | currency}} </td>
+            <td mat-footer-cell *matFooterCellDef> {{ totalCargos | currency}} </td>
+          </ng-container>
+
+          <!-- Abono Column -->
+          <ng-container matColumnDef="Abono">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Abono"> Abono
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.Abono | currency}} </td>
+            <td mat-footer-cell *matFooterCellDef class="mr-2 ml-2"> {{totalAbonos | currency}} </td>
+          </ng-container>
+
+          <!-- Saldo Column -->
+          <ng-container matColumnDef="saldo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenado por Saldo"> Saldo
+            </th>
+            <td mat-cell *matCellDef="let row"> {{row.Saldo | currency}} </td>
+            <td mat-footer-cell *matFooterCellDef class="mr-2 ml-2"> {{ saldo | currency }} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No se encontraron datos para</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

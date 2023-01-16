@@ -1,0 +1,179 @@
+<div class="container container-sm container-md container-lg contenido text-center">
+  <h3 class="mb-2">Solicitud de Prestamos</h3>
+  <div class="row d-flex justify-content-between text-left">
+    <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-left">
+      <app-solicitud-prestamo-ayuda [(codigo)]="solicitud.nIdPrestamo" titulo="Folio" (cambio)="folioSeleccionado($event)"
+        [refrescarDatos]="refrescarDatos" [editable]="!(solicitud.nIdPrestamo > 0)"></app-solicitud-prestamo-ayuda>
+    </div>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="datepicker" [(ngModel)]="solicitud.dFecha_Registro"
+        [ngModelOptions]="{standalone: true}" disabled>
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="row d-flex justify-content-between text-left">
+    <div class="col-10 col-sm-8 col-md-8 col-lg-7 col-xl-5">
+      <app-empleado-ayuda [(codigo)]="solicitud.nCodEmpleado" [(nombre)]="solicitud.NombreEmpleado"
+        (cambio)="empeladoSeleccionado($event)" titulo="Solicitante"
+        [editable]="!(solicitud.nIdPrestamo > 0)"></app-empleado-ayuda>
+    </div>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Maximo</mat-label>
+      <input type="text" matInput placeholder="Maximo" name="nMaximo"
+        id="nMaximo" disabled [(localizedNumericInput)]="maximo">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-10 col-sm-8 col-md-7 col-lg-5 col-xl-3">
+      <app-tipo-prestamo-ayuda [(codigo)]="solicitud.nIdRubro" [(nombre)]="solicitud.NombreRubro" (cambio)="rubroSeleccionado($event)" titulo="Rubro"
+        [editable]="!(solicitud.nIdPrestamo > 0)"></app-tipo-prestamo-ayuda>
+    </div>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha Cobro</mat-label>
+      <input matInput [matDatepicker]="fechaCobro" [(ngModel)]="solicitud.dFechaCobro"
+        [ngModelOptions]="{standalone: true}" [readonly]="!fechaCobroEditable">
+      <mat-datepicker-toggle matSuffix [for]="fechaCobro" [disabled]="!fechaCobroEditable"></mat-datepicker-toggle>
+      <mat-datepicker #fechaCobro startView="year">
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Modificar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="row d-flex justify-content-start text-left">
+    <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-left">
+      <mat-form-field class="col">
+        <mat-label>Importe</mat-label>
+        <input type="text" matInput placeholder="Importe del prestamo" [(localizedNumericInput)]="solicitud.nImporte" [max]="maximo"
+          [readonly]="(solicitud.nIdPrestamo > 0)">
+      </mat-form-field>
+    </div>
+    <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-left">
+      <mat-form-field class="col" hidden>
+        <mat-label>Saldo</mat-label>
+        <input type="text" matInput placeholder="Saldo" [(localizedNumericInput)]="solicitud.nSaldo"
+          name="nSaldo" id="nSaldo" disabled>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-left">
+      <mat-radio-group aria-labelledby="Estatus del puesto" class="col-sm-3 col-md-3 col-lg-3 col-xl-3" [(ngModel)]="solicitud.bActivo" disabled>
+        <mat-radio-button [value]="true">Activo</mat-radio-button>
+        <mat-radio-button class="ml-2" [value]="false">Cancelado</mat-radio-button>
+      </mat-radio-group>
+    </div>
+  </div>
+  <div *ngIf="solicitud.nIdPrestamo > 0" class="row mt-2">
+    <div class="col">
+      <!-- Archivos -->
+      <div class="list-group list-group-horizontal">
+        <span class="list-group-item list-group-item-action" [ngClass]="{'bg-info text-white': solicitud.cRutaArchivoINE_Frente}">
+          <div class="row">
+            <div class="col text-left d-flex align-items-center"
+              (click)="abrirINE_Frente()"
+              [ngClass]="{'pointer': solicitud.cRutaArchivoINE_Frente}">
+              <small>INE FRENTE</small>
+            </div>
+            <div class="col">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="quitarINE_Frente()"
+                [hidden]="!solicitud.cRutaArchivoINE_Frente || !editable">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': borrandoINE_F}"></i>
+              </button>
+              <button class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agegarINE_Frente()"
+                [hidden]="solicitud.cRutaArchivoINE_Frente || !editable">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': guardandoINE_F}"></i>
+              </button>
+            </div>
+          </div>
+        </span>
+        <span class="list-group-item list-group-item-action" [ngClass]="{'bg-info text-white': solicitud.cRutaArchivoINE_Atras}">
+          <div class="row">
+            <div class="col text-left d-flex align-items-center"
+              (click)="abrirINE_Atras()"
+              [ngClass]="{'pointer': solicitud.cRutaArchivoINE_Atras}">
+              <small>INE ATRAS</small>
+            </div>
+            <div class="col">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="quitarINE_Atras()"
+                [hidden]="!solicitud.cRutaArchivoINE_Atras || !editable">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': borrandoINE_A}"></i>
+              </button>
+              <button class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agegarINE_Atras()"
+                [hidden]="solicitud.cRutaArchivoINE_Atras || !editable">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': guardandoINE_A}"></i>
+              </button>
+            </div>
+          </div>
+        </span>
+        <span class="list-group-item list-group-item-action" [ngClass]="{'bg-info text-white': solicitud.cRutaPagare}">
+          <div class="row">
+            <div class="col text-left d-flex align-items-center"
+              (click)="abrirPagare()"
+              [ngClass]="{'pointer': solicitud.cRutaPagare}">
+              <small>PAGARE</small>
+            </div>
+            <div class="col">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="quitarPagare()"
+                [hidden]="!solicitud.cRutaPagare || !editable">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': borrandoPagare}"></i>
+              </button>
+              <button class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agregarPagare()"
+                [hidden]="solicitud.cRutaPagare || !editable">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;"  [ngClass]="{'fa-beat animar': guardandoPagare}"></i>
+              </button>
+            </div>
+          </div>
+        </span>
+        <span class="list-group-item list-group-item-action" [ngClass]="{'bg-info text-white': solicitud.cRutaCheque}">
+          <div class="row">
+            <div class="col text-left d-flex align-items-center"
+              (click)="abrirCheque()"
+              [ngClass]="{'pointer': solicitud.cRutaCheque}">
+              <small>CHEQUE</small>
+            </div>
+            <div class="col">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="quitarCheque()"
+                [hidden]="!solicitud.cRutaCheque || !editable">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': borrandoCheque}"></i>
+              </button>
+              <button class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agregarCheque()"
+                [hidden]="solicitud.cRutaCheque || !editable">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': guardandoCheque}"></i>
+              </button>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-end mt-2 m-2">
+    <div class="col text-right">
+      <button type="button" class="btn btn-info mr-2"
+        *ngIf="solicitud.nIdPrestamo > 0"
+        (click)="imprimir()"><i class="fa-solid fa-print mr-2"></i>Imprimir</button>
+      <button type="button" class="btn btn-primary mr-2" *ngIf="guardarVisible"
+        (click)="guardar()"><i class="fa-solid fa-sd-card mr-2"></i>Guardar</button>
+      <button type="button" class="btn btn-secondary mr-2" *ngIf="solicitud.nIdPrestamo > 0 && editable"
+        (click)="cancelar()"><i class="fa-solid fa-power-off mr-2"></i>Cancelar</button>
+      <button type="button" class="btn btn-warning" (click)="nuevo()"><i class="fa-solid fa-broom mr-2"></i>Limpiar</button>
+    </div>
+  </div>
+  <mat-divider class="mt-3 mb-2"></mat-divider>
+  <div class="row">
+    <div class="col">
+      <app-solicitud-prestamo-historial [codigoEmpleado]="solicitud.nCodEmpleado"></app-solicitud-prestamo-historial>
+    </div>
+  </div>
+</div>
+
+
+<app-seleccionar-archivo [(mostrarPopUp)]="mostrarAgregarArchivo" (archivoBlob)="agregarArchivo($event)"></app-seleccionar-archivo>

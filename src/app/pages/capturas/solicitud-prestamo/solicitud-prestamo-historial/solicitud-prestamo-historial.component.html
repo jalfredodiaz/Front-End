@@ -1,0 +1,45 @@
+<mat-card class="shadow">Historial de prestamos</mat-card>
+
+<table mat-table [dataSource]="items" class="mat-elevation-z8 mb-5">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- IdPrestamo Column -->
+  <ng-container matColumnDef="IdPrestamo">
+    <th mat-header-cell *matHeaderCellDef> Folio </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.IdPrestamo}} </td>
+  </ng-container>
+
+  <!-- Fecha Column -->
+  <ng-container matColumnDef="FechaRegistro">
+  <th mat-header-cell *matHeaderCellDef> Fecha </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.FechaRegistro | date: 'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+  <!-- NombreRubro Column -->
+  <ng-container matColumnDef="NombreRubro">
+    <th mat-header-cell *matHeaderCellDef> Rubro </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.NombreRubro}} </td>
+  </ng-container>
+
+  <!-- Importe Column -->
+  <ng-container matColumnDef="Importe">
+    <th mat-header-cell *matHeaderCellDef> Importe </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.Importe | FormatearNumero}} </td>
+  </ng-container>
+
+  <!-- Pagado Column -->
+  <ng-container matColumnDef="Pagado">
+    <th mat-header-cell *matHeaderCellDef> Pagado </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.Pagado | SiNo}} </td>
+  </ng-container>
+
+  <!-- Activo Column -->
+  <ng-container matColumnDef="Activo">
+    <th mat-header-cell *matHeaderCellDef> Activo </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.Activo | SiNo}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

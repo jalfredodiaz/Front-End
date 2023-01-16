@@ -1,0 +1,75 @@
+<mat-card class="shadow">Listado de Prestamos</mat-card>
+
+<table mat-table [dataSource]="solicitudes" class="mat-elevation-z8 mb-5">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- IdPrestamo Column -->
+  <ng-container matColumnDef="nIdPrestamo">
+    <th mat-header-cell *matHeaderCellDef> Folio </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.nIdPrestamo}} </td>
+  </ng-container>
+
+  <!-- NombreEmpleado Column -->
+  <ng-container matColumnDef="NombreEmpleado">
+    <th mat-header-cell *matHeaderCellDef> Empleado </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.NombreEmpleado}} </td>
+  </ng-container>
+
+  <!-- Fecha Column -->
+  <ng-container matColumnDef="dFecha_Registro">
+    <th mat-header-cell *matHeaderCellDef> Fecha Registro </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.dFecha_Registro | date: 'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+  <!-- Fecha Cobro Column -->
+  <!-- <ng-container matColumnDef="dFechaCobro">
+    <th mat-header-cell *matHeaderCellDef> Fecha Cobro </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.dFechaCobro | date: 'yyyy-MM-dd'}} </td>
+  </ng-container> -->
+
+  <!-- nImporte Column -->
+  <ng-container matColumnDef="nImporte">
+    <th mat-header-cell *matHeaderCellDef> <span class="mr-2">Importe</span></th>
+    <td class="text-left mr-2" mat-cell *matCellDef="let element"> {{element.nImporte | FormatearNumero}} </td>
+  </ng-container>
+
+  <!-- nImporte Column -->
+  <ng-container matColumnDef="archivos">
+    <th mat-header-cell *matHeaderCellDef> <span class="mr-2"></span></th>
+    <td class="text-left mr-2" mat-cell *matCellDef="let element">
+      <i *ngIf="element.cRutaArchivoINE_Frente || element.cRutaArchivoINE_Atras" class="fa-solid fa-id-card mr-2"
+        data-toggle="tooltip" data-placement="top" title="CON INE"></i>
+      <i *ngIf="element.cRutaPagare" class="fa-solid fa-receipt mr-2" data-toggle="tooltip" data-placement="top" title="CON PAGARÉ"></i>
+      <i *ngIf="element.cRutaCheque" class="fa-solid fa-money-check" data-toggle="tooltip" data-placement="top" title="CON CHEQUE"></i>
+    </td>
+  </ng-container>
+
+
+  <!-- INE F Column -->
+  <!-- <ng-container matColumnDef="cRutaArchivoINE_Frente">
+    <th mat-header-cell *matHeaderCellDef><span class="ml-3 text-left">INE Frente</span></th>
+    <td class="text-left" mat-cell *matCellDef="let element"> <span class="ml-3">{{element.cRutaArchivoINE_Frente | SiNo}}</span></td>
+  </ng-container> -->
+
+  <!-- INE A Column -->
+  <!-- <ng-container matColumnDef="cRutaArchivoINE_Atras">
+    <th mat-header-cell *matHeaderCellDef> INE Atras </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.cRutaArchivoINE_Atras | SiNo}} </td>
+  </ng-container> -->
+
+  <!-- Pagare Column -->
+  <!-- <ng-container matColumnDef="cRutaPagare">
+    <th mat-header-cell *matHeaderCellDef> Pagare </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.cRutaPagare | SiNo}} </td>
+  </ng-container> -->
+
+  <!-- Cheque Column -->
+  <!-- <ng-container matColumnDef="cRutaCheque">
+    <th mat-header-cell *matHeaderCellDef> Cheque </th>
+    <td class="text-left" mat-cell *matCellDef="let element"> {{element.cRutaCheque | SiNo}} </td>
+  </ng-container> -->
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

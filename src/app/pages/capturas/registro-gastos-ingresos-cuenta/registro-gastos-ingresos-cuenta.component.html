@@ -1,0 +1,95 @@
+<div class="container container-sm container-md container-lg contenido text-center">
+  <h3 class="mb-2">Registro de Gastos e Ingresos</h3>
+  <div class="row mt-2">
+    <app-cuentas-ayuda [(codigo)]="idCuenta" titulo="Cuenta" (cambio)="refrescarMovimientos()" [editable]="editable"></app-cuentas-ayuda>
+    <mat-form-field class="ml-2">
+      <mat-label>Tipo Movimiento</mat-label>
+      <mat-select [(ngModel)]="esIngreso" (valueChange)="refrescarMovimientos()" name="tipoMov" [disabled]="!editable">
+        <mat-option [value]="true">
+          INGRESO
+        </mat-option>
+        <mat-option [value]="false">
+          GASTO
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="row d-flex justify-content-between">
+    <app-registro-gastos-ingresos-cuenta-ayuda [idCuenta]="idCuenta" [(codigo)]="idMovimiento"
+      (change)="seleccionoMovimiento($event)" [esIngreso]="esIngreso" [refrescarDatos]="refrescarDatos"
+      titulo="Folio" [editable]="editable"></app-registro-gastos-ingresos-cuenta-ayuda>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha</mat-label>
+      <input matInput [matDatepicker]="datepicker" [(ngModel)]="registro.dFecha_Registro"
+        [ngModelOptions]="{standalone: true}" disabled>
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <app-categoria-gasto-ayuda [(codigo)]="registro.nIdCategoria" titulo="Categoría" [editable]="editable"></app-categoria-gasto-ayuda>
+    <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-left">
+      <mat-form-field>
+        <mat-label>Importe</mat-label>
+        <input type="text" matInput placeholder="Ingrese el importe" [(localizedNumericInput)]="registro.nImporte" [readonly]="!editable">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 text-left">
+      <mat-form-field style="width: 100%;">
+        <mat-label>Observaciones</mat-label>
+        <textarea matInput placeholder="Ingrese las observaciones" [(ngModel)]="registro.cObservaciones"
+          [rows]="4" [readonly]="!editable"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col-3">
+      <!-- Archivos -->
+      <div *ngIf="registro.nIdMovimiento > 0" class="list-group list-group-horizontal">
+        <span class="list-group-item list-group-item-action"
+          [ngClass]="{'bg-info text-white': registro.cRutaDocumento}">
+          <div class="row">
+            <div class="col text-left d-flex align-items-center" (click)="abrirDocumento()"
+              [ngClass]="{'pointer': registro.cRutaDocumento}">
+              <small>DOCUMENTO</small>
+            </div>
+            <div class="col">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="quitarDocumento()"
+                [hidden]="!registro.cRutaDocumento || editable || registro.Cancelado">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': borrandoArchivo}"></i>
+              </button>
+              <button class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agregarDocumento()"
+                [hidden]="registro.cRutaDocumento || editable || registro.Cancelado">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;"></i>
+              </button>
+            </div>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+  <mat-divider *ngIf="idCuenta > 0 || registro.nIdCategoria > 0 || registro.cObservaciones || registro.nImporte > 0"></mat-divider>
+  <div class="row mt-2">
+    <div class="col text-right">
+      <button type="button" class="btn btn-primary mr-2" *ngIf="editable && idCuenta > 0" (click)="guardar()">
+        <i class="fa-solid fa-sd-card mr-2" [ngClass]="{'fa-beat animar': guardando}" ></i>Guardar
+      </button>
+      <button type="button" class="btn btn-secondary mr-2"
+        *ngIf="!editable && idMovimiento > 0 && !registro.Cancelado && registro.nIdMovimientoCancela == 0" (click)="cancelar()">
+        <i class="fa-solid fa-power-off mr-2" [ngClass]="{'fa-beat animar': cancelando}"></i>Cancelar
+      </button>
+      <button *ngIf="idCuenta > 0 || registro.nIdCategoria > 0 || registro.cObservaciones || registro.nImporte > 0" type="button" class="btn btn-warning" (click)="nuevo()">
+        <i class="fa-solid fa-broom mr-2"></i>Limpiar
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<app-seleccionar-archivo [(mostrarPopUp)]="mostrarAgregarArchivo" (archivoBlob)="agregarArchivo($event)">
+</app-seleccionar-archivo>

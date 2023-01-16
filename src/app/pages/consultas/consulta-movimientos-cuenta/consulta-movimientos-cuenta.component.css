@@ -1,0 +1,13 @@
+tr.mat-footer-row {
+  font-weight: bold;
+}
+
+table {
+  min-width: 1000px;
+  width: 100%;
+}
+
+.tableFixHead2 {
+  max-height: calc(100vh - 255px);
+  overflow: auto;
+}

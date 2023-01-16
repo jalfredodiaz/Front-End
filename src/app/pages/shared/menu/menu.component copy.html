@@ -1,0 +1,120 @@
+<nav class="navbar navbar-expand-lg navbar-light align-middle block" background-color: #e3f2fd;>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Adelnor">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse text-right" id="navbarToggler">
+        <ul class="navbar-nav mr-auto" id="opcionesMenu">
+            <li class="font-weight-bold" *ngFor="let opcionN1 of menu">
+                <a id="{{ 'dropdownMenu'  + opcionN1.nRama.toString() }}" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle nivel${nivel}">{{opcionN1.cNombreRama.trim()}}</a>
+                <ul class="dropdown-menu border-0 shadow">
+                    <span *ngFor="let opcionN2 of opcionN1.opciones">
+                        <li class="dropdown-submenu" *ngIf="opcionN2.opciones.length > 0">
+                            <a id="{{ 'dropdownMenu'  + opcionN2.nRama.toString() }}" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN2.cNombreRama.trim()}}
+                                <i class="fas fa-caret-right float-right"></i></a>
+                            <ul class="dropdown-menu border-0 shadow">
+                                <span *ngFor="let opcionN3 of opcionN2.opciones">
+                                    <li class="dropdown-submenu" *ngIf="opcionN3.opciones.length > 0">
+                                        <a id="{{ 'dropdownMenu'  + opcionN3.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN3.cNombreRama.trim()}}
+                                            <i class="fas fa-caret-right float-right"></i></a>
+                                        <ul class="dropdown-menu border-0 shadow">
+                                            <span *ngFor="let opcionN4 of opcionN3.opciones">
+                                                <li class="dropdown-submenu" *ngIf="opcionN4.opciones.length > 0">
+                                                    <a id="{{ 'dropdownMenu'  + opcionN4.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN4.cNombreRama.trim()}}
+                                                        <i class="fas fa-caret-right float-right"></i></a>
+                                                    <ul class="dropdown-menu border-0 shadow">
+                                                        <span *ngFor="let opcionN5 of opcionN4.opciones">
+                                                            <li class="dropdown-submenu" *ngIf="opcionN5.opciones.length > 0">
+                                                                <a id="{{ 'dropdownMenu'  + opcionN5.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                                    aria-haspopup="true" aria-expanded="false"
+                                                                    class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN5.cNombreRama.trim()}}
+                                                                    <i class="fas fa-caret-right float-right"></i></a>
+                                                                <ul class="dropdown-menu border-0 shadow">
+                                                                    <span *ngFor="let opcionN6 of opcionN5.opciones">
+                                                                        <li class="dropdown-submenu" *ngIf="opcionN6.opciones.length > 0">
+                                                                            <a id="{{ 'dropdownMenu'  + opcionN6.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                                                aria-haspopup="true" aria-expanded="false"
+                                                                                class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN6.cNombreRama.trim()}}
+                                                                                <i class="fas fa-caret-right float-right"></i></a>
+                                                                            <ul class="dropdown-menu border-0 shadow">
+                                                                                <span *ngFor="let opcionN7 of opcionN6.opciones">
+                                                                                    <li class="dropdown-submenu" *ngIf="opcionN7.opciones.length > 0">
+                                                                                        <a id="{{ 'dropdownMenu'  + opcionN7.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                                                            aria-haspopup="true" aria-expanded="false"
+                                                                                            class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN7.cNombreRama.trim()}}
+                                                                                            <i class="fas fa-caret-right float-right"></i></a>
+                                                                                        <ul class="dropdown-menu border-0 shadow">
+                                                                                            <span *ngFor="let opcionN8 of opcionN7.opciones">
+                                                                                                <li class="dropdown-submenu" *ngIf="opcionN8.opciones.length > 0">
+                                                                                                    <a id="{{ 'dropdownMenu'  + opcionN8.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                                                                        aria-haspopup="true" aria-expanded="false"
+                                                                                                        class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN8.cNombreRama.trim()}}
+                                                                                                        <i class="fas fa-caret-right float-right"></i></a>
+                                                                                                    <ul class="dropdown-menu border-0 shadow">
+                                                                                                        <span *ngFor="let opcionN9 of opcionN8.opciones">
+                                                                                                            <li class="dropdown-submenu" *ngIf="opcionN9.opciones.length > 0">
+                                                                                                                <a id="{{ 'dropdownMenu'  + opcionN9.nRama.toString() }}" href="#" role="button" data-toggle="dropdown"
+                                                                                                                    aria-haspopup="true" aria-expanded="false"
+                                                                                                                    class="dropdown-item dropdown-toggle nivel${nivel}">{{opcionN9.cNombreRama.trim()}}
+                                                                                                                    <i class="fas fa-caret-right float-right"></i></a>
+                                                                                                                <ul class="dropdown-menu border-0 shadow">
+                                                                                                                    NO SE SOPORTA MAS OPCIONES DE MENU
+                                                                                                                </ul>
+                                                                                                            </li>
+                                                                                                            <li *ngIf="opcionN9.opciones.length == 0">
+                                                                                                                <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN9.cRuta)">{{opcionN9.cNombreRama}}</a>
+                                                                                                            </li>
+                                                                                                        </span>
+                                                                                                    </ul>
+                                                                                                </li>
+                                                                                                <li *ngIf="opcionN8.opciones.length == 0">
+                                                                                                    <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN8.cRuta)">{{opcionN8.cNombreRama}}</a>
+                                                                                                </li>
+                                                                                            </span>
+                                                                                        </ul>
+                                                                                    </li>
+                                                                                    <li class="nav-item" *ngIf="opcionN7.opciones.length == 0">
+                                                                                        <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN7.cRuta)">{{opcionN7.cNombreRama}}</a>
+                                                                                    </li>
+                                                                                </span>
+                                                                            </ul>
+                                                                        </li>
+                                                                        <li class="nav-item" *ngIf="opcionN6.opciones.length == 0">
+                                                                            <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN6.cRuta)">{{opcionN6.cNombreRama}}</a>
+                                                                        </li>
+                                                                    </span>
+                                                                </ul>
+                                                            </li>
+                                                            <li *ngIf="opcionN5.opciones.length == 0">
+                                                                <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN5.cRuta)">{{opcionN5.cNombreRama}}</a>
+                                                            </li>
+                                                        </span>
+                                                    </ul>
+                                                </li>
+                                                <li *ngIf="opcionN4.opciones.length == 0">
+                                                    <a class="dropdown-item pointer" (click)="abrirOpcion(opcionN4.cRuta)">{{opcionN4.cNombreRama}}</a>
+                                                </li>
+                                            </span>
+                                        </ul>
+                                    </li>
+                                    <li class="nav-item" *ngIf="opcionN3.opciones.length == 0">
+                                        <a class="dropdown-item pointer" 
+                                        (click)="abrirOpcion(opcionN3.cRuta)">{{opcionN3.cNombreRama}}</a>
+                                    </li>
+                                </span>
+                            </ul>
+                        </li>
+                        <li class="nav-item" *ngIf="opcionN2.opciones.length == 0">
+                            <a class="dropdown-item pointer" 
+                                (click)="abrirOpcion(opcionN2.cRuta)">{{opcionN2.cNombreRama}}</a>
+                        </li>
+                    </span>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>

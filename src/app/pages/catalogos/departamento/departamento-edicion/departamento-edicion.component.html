@@ -1,0 +1,40 @@
+<div class="fondo-negro oculto" [ngClass]="{'d-flex align-items-center': mostrarPopup}">
+  <div *ngIf="departamento" class="container-sm container container-md container-lg popup-captura-sm" tabindex="-1"
+    role="dialog">
+    <div class="row mt-2">
+      <div class="col font-weight-bold">
+        <h2 *ngIf="departamento.nIdDepartamento > 0">Editando Departamento</h2>
+        <h2 *ngIf="departamento.nIdDepartamento == 0">Nuevo Departamento</h2>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-3 mb-3">
+      <div class="col text-left">
+        <mat-form-field class="col-sm-2 col-md-2 col-lg-2">
+          <mat-label>Codigo</mat-label>
+          <input matInput placeholder="Codigo" [(ngModel)]="departamento.nIdDepartamento" readonly #codigo="ngModel"
+            name="codigo" id="codigo">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <mat-form-field class="col-sm col-md col-lg">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre Categoría" [(ngModel)]="departamento.cDepartamento" #nombre="ngModel"
+            name="nombre" id="nombre">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <mat-radio-group aria-labelledby="Estatus de la categoria" class="col-sm-3 col-md-3 col-lg-3 col-xl-3"
+          [(ngModel)]="departamento.bActivo" [disabled]="departamento.nIdDepartamento == 0">
+          <mat-radio-button [value]="true">Activo</mat-radio-button>
+          <mat-radio-button class="ml-2" [value]="false">Inactivo</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-2 mb-2">
+      <div class="col text-right">
+        <button type="button" class="btn btn-outline-primary" (click)="guardar()">Guardar</button>
+        <button type="button" class="btn btn-outline-secondary ml-2" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

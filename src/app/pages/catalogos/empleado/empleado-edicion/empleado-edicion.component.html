@@ -1,0 +1,98 @@
+<div class="fondo-negro oculto" [ngClass]="{'d-flex align-items-center': mostrarPopup}">
+  <div *ngIf="empleado" class="container-sm container container-md container-lg popup-captura-sm" tabindex="-1"
+    role="dialog">
+    <div class="row mt-2">
+      <div class="col font-weight-bold">
+        <h2 *ngIf="!nuevo">Editando Empleado</h2>
+        <h2 *ngIf="nuevo">Nuevo Empleado</h2>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-3 mb-3">
+      <div class="col text-left">
+        <mat-form-field class="col-sm-2 col-md-2 col-lg-2">
+          <mat-label>Codigo</mat-label>
+          <input matInput placeholder="Codigo" [(ngModel)]="empleado.nCodEmpleado" [readonly]="!nuevo" #codigo="ngModel" name="codigo" id="codigo">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <mat-form-field class="col-sm col-md col-lg">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre Empleado" [(ngModel)]="empleado.cNombre" #nombre="ngModel" name="nombre"
+            id="nombre">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <app-puesto-ayuda [(codigo)]="empleado.nIdPuesto" [(nombre)]="empleado.cPuesto" titulo="Puesto" (cambio)="empleado.cDepartamento = $event == null ? '' : $event.cDepartamento"></app-puesto-ayuda>
+        <div class="w-100"></div>
+        <mat-form-field class="col-lg-4">
+          <mat-label>Fecha Ingreso</mat-label>
+          <input matInput [matDatepicker]="datepicker" [(ngModel)]="empleado.dFechaIngreso"
+            [ngModelOptions]="{standalone: true}">
+          <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+          <mat-datepicker #datepicker>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancelar</button>
+              <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+        <mat-radio-group aria-labelledby="Estatus del empleado" class="col-sm-3 col-md-3 col-lg-3 col-xl-3"
+          [(ngModel)]="empleado.bActivo" [disabled]="empleado.nCodEmpleado == 0">
+          <mat-radio-button [value]="true">Activo</mat-radio-button>
+          <mat-radio-button class="ml-2" [value]="false">Inactivo</mat-radio-button>
+        </mat-radio-group>
+        <mat-form-field>
+          <mat-label>Estatus Nuevo Puesto</mat-label>
+          <mat-select [(ngModel)]="empleado.nEstatusCrecimiento" name="estatusCrecimiento">
+            <mat-option *ngFor="let estatus of estatusCrecimiento" [value]="estatus.id">
+              {{estatus.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field class="col">
+          <mat-label>Observaciones</mat-label>
+          <textarea matInput placeholder="Ingrese las observaciones" [(ngModel)]="empleado.cObservaciones" [rows]="3"></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <mat-grid-list cols="3" rowHeight="5:1">
+          <mat-grid-tile *ngFor="let archivo of empleado.Archivos; let i=index" class="bg-info">
+            <div class="col text-left pointer text-white" (click)="abrirArchivo(archivo)">
+              <small>{{ archivo.Descripcion }}</small>
+            </div>
+            <div class="col text-right">
+              <button class="bg-danger" mat-mini-fab aria-label="Quitar archivo" (click)="borrarArchivo(archivo)">
+                <i class="far fa-trash-alt text-white" style="font-size: 18px;" [ngClass]="{'fa-beat animar': archivo.Borrando}"></i>
+              </button>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile rowspan="1" colspan="1" class="list-group-item-action">
+            <div class="col">
+              <small>Nuevo archivo...</small>
+            </div>
+            <div class="col-4 text-right">
+              <button *ngIf="!nuevo" class="bg-primary" mat-mini-fab aria-label="Agregar archivo" (click)="agregarArchivo()">
+                <i class="fa-solid fa-file-circle-plus text-white" style="font-size: 18px;"
+                  [ngClass]="{'fa-beat animar': guardandoArchivo}"></i>
+              </button>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-2 mb-2">
+      <div class="col text-right">
+        <button type="button" class="btn btn-outline-primary" (click)="guardar()">Guardar</button>
+        <button type="button" class="btn btn-outline-secondary ml-2" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-seleccionar-archivo></app-seleccionar-archivo>

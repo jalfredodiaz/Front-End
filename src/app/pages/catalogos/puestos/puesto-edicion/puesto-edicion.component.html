@@ -1,0 +1,49 @@
+<div class="fondo-negro oculto" [ngClass]="{'d-flex align-items-center': mostrarPopup}">
+  <div *ngIf="puesto" class="container-sm container container-md container-lg popup-captura-sm" tabindex="-1"
+    role="dialog">
+    <div class="row mt-2">
+      <div class="col font-weight-bold">
+        <h2 *ngIf="puesto.nIdPuesto > 0">Editando Puesto</h2>
+        <h2 *ngIf="!puesto.nIdPuesto || puesto.nIdPuesto == 0">Nuevo Puesto</h2>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-3 mb-3">
+      <div class="col text-left">
+        <mat-form-field class="col-sm-2 col-md-2 col-lg-2">
+          <mat-label>Codigo</mat-label>
+          <input matInput placeholder="Codigo" [(ngModel)]="puesto.nIdPuesto" readonly #codigo="ngModel"
+            name="codigo" id="codigo">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <mat-form-field class="col-sm col-md col-lg">
+          <mat-label>Nombre</mat-label>
+          <input matInput placeholder="Nombre Puesto" [(ngModel)]="puesto.cPuesto" #nombre="ngModel"
+            name="nombre" id="nombre">
+        </mat-form-field>
+        <div class="w-100"></div>
+        <app-puesto-ayuda [(codigo)]="puesto.nIdPuestoPadre" [(nombre)]="puesto.cPuestoPadre" titulo="Puesto Padre"></app-puesto-ayuda>
+        <div class="w-100"></div>
+        <app-departamento-ayuda [(codigo)]="puesto.nIdDepartamento" [(nombre)]="puesto.cDepartamento" titulo="Departamento"></app-departamento-ayuda>
+        <div class="w-100"></div>
+        <mat-form-field class="col-sm-4 col-md-4 col-lg-4">
+          <mat-label>Sueldo</mat-label>
+          <input type="number" matInput placeholder="Sueldo" [(ngModel)]="puesto.nSueldo" #sueldo="ngModel" name="sueldo"
+            id="sueldo">
+        </mat-form-field>
+        <mat-radio-group aria-labelledby="Estatus del puesto" class="col-sm-3 col-md-3 col-lg-3 col-xl-3"
+          [(ngModel)]="puesto.bActivo" [disabled]="puesto.nIdPuesto == 0">
+          <mat-radio-button [value]="true">Activo</mat-radio-button>
+          <mat-radio-button class="ml-2" [value]="false">Inactivo</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="row mt-2 mb-2">
+      <div class="col text-right">
+        <button type="button" class="btn btn-outline-primary" (click)="guardar()">Guardar</button>
+        <button type="button" class="btn btn-outline-secondary ml-2" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

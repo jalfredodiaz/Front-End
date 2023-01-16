@@ -1,0 +1,76 @@
+<div class="container container-sm container-md container-lg contenido text-center">
+  <h3 class="mb-2">Corte de Prestamos</h3>
+  <div class="row d-flex justify-content-between text-left">
+    <div class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2 text-left">
+      <app-corte-prestamo-ayuda [(codigo)]="corte.nIdCorte" titulo="Folio" (cambio)="folioSeleccionado($event)"
+        [refrescarDatos]="refrescarDatos" [editable]="editable"></app-corte-prestamo-ayuda>
+    </div>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha Registro</mat-label>
+      <input matInput [matDatepicker]="datepicker" [(ngModel)]="corte.dFecha_Registro"
+        [ngModelOptions]="{standalone: true}" disabled>
+      <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+      <mat-datepicker #datepicker>
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Aplicar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <div class="col-10 col-sm-8 col-md-7 col-lg-5 col-xl-3">
+      <app-tipo-prestamo-ayuda [(codigo)]="corte.nIdRubro" (cambio)="rubroSeleccionado($event)" titulo="Rubro" [editable]="editable"></app-tipo-prestamo-ayuda>
+    </div>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Fecha Corte</mat-label>
+      <input matInput [matDatepicker]="fechaCorte" [(ngModel)]="corte.dFechaCorte"
+        [ngModelOptions]="{standalone: true}" [readonly]="!editable">
+      <mat-datepicker-toggle matSuffix [for]="fechaCorte" [disabled]="!editable"></mat-datepicker-toggle>
+      <mat-datepicker #fechaCorte startView="year">
+        <mat-datepicker-actions>
+          <button mat-button matDatepickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDatepickerApply>Modificar</button>
+        </mat-datepicker-actions>
+      </mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class="col-5 col-sm-4 col-md-3 col-lg-2 col-xl-2">
+      <mat-label>Total</mat-label>
+      <input type="text" matInput placeholder="Total" readonly
+        [(localizedNumericInput)]="corte.nTotal">
+    </mat-form-field>
+  </div>
+  <mat-divider class="mt-2 mb-2"></mat-divider>
+  <div *ngIf="editable || puedePagar" class="row mb-2">
+    <div *ngIf="!corte.nIdCorte && corte.nIdRubro > 0" class="col-3 col-sm-3 col-md-4 col-lg-3 col-xl-2 text-left">
+      <button type="button" class="btn btn-info" (click)="obtenerPrestamosPorFechaCorte()">Buscar Prestamos</button>
+    </div>
+    <div class="col text-right">
+      <button *ngIf="corte.nIdCorte > 0 && corte.bPagado == false && corte.bActivo && puedePagar" type="button" class="btn btn-outline-success"
+        (click)="pagar()" [ngClass]="{'mr-2': editable}">
+        <i class="fa-solid fa-credit-card mr-2"></i>Pagar
+      </button>
+      <button *ngIf="corte.nIdRubro > 0 && corte.bPagado && puedePagar" type="button" class="btn btn-outline-danger mr-2"
+        (click)="cancelarPago()" [ngClass]="{'mr-2': editable}">
+        <i class="fa-solid fa-power-off mr-2"></i>Cancelar Pago
+      </button>
+      <button *ngIf="corte.nIdCorte > 0 && editable" type="button" class="btn btn-info mr-2" (click)="imprimir()">
+        <i class="fa-solid fa-print mr-2"></i>Imprimir</button>
+      <button *ngIf="!corte.nIdCorte && corte.nIdRubro > 0 && corte.Prestamos.length > 0 && corte.bPagado == false && editable" type="button"
+          class="btn btn-primary mr-2" (click)="guardar()">
+          <!-- col-5 col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 mr-2 mr-sm-2 mr-md-2 mr-lg-2 mr-xl-2 -->
+        <i class="fa-solid fa-sd-card mr-2"></i>Guardar</button>
+      <button *ngIf="corte.nIdCorte > 0 && !corte.bPagado && corte.bActivo && corte.bPagado == false && editable" type="button" class="btn btn-secondary mr-2" (click)="cancelar()">
+        <!-- col-5 col-xs-6 col-sm-3 col-md-4 col-lg-3 col-xl-2 mr-2 mr-sm-2 mr-md-2 mr-lg-2 mr-xl-2 -->
+        <i class="fa-solid fa-power-off mr-2"></i>Cancelar</button>
+      <button *ngIf="corte.nIdRubro > 0 && editable"  type="button" class="btn btn-warning" (click)="nuevo()">
+        <!-- col-5 col-xs-6 col-sm-3 col-md-3 col-lg-2 col-xl-2 -->
+        <i class="fa-solid fa-broom mr-2"></i>Limpiar</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <app-corte-prestamo-detalle [items]="corte.Prestamos"></app-corte-prestamo-detalle>
+    </div>
+  </div>
+</div>

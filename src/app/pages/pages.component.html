@@ -1,0 +1,31 @@
+<div class="fixed-top">
+  <app-header></app-header>
+</div>
+<div class="container-fluid centrar contenido sinPading-left sinPading-right">
+  <router-outlet></router-outlet>
+</div>
+<div class="footer fixed-bottom">
+  <app-footer></app-footer>
+</div>
+
+<div *ngIf="esperandoRespuesta" class="fondo-negro oculto"
+  [ngClass]="{'d-flex align-items-xl-center': esperandoRespuesta}">
+  <div class="container" style="max-width: 500px;" tabindex="-1" role="dialog">
+    <div class="card">
+      <div class="card-header">
+        <h3>Sesión por caducar</h3>
+      </div>
+      <div class="card-body">
+        La sesión caducara por falta de actividad dentro de {{ usuarioLogueadoService.segundosExpiracion }} segundos.
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-outline-success" (click)="ampliarTiempo()">
+          No Cerrar sesión
+        </button>
+        <button class="btn btn-outline-danger ml-2" (click)="cerrarSesion()">
+          Cerrar sesión
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

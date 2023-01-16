@@ -1,0 +1,9 @@
+<mat-form-field class="col-sm col-md col-lg">
+  <mat-label>{{ titulo }}</mat-label>
+  <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" [panelWidth]="'co-12 col-sm-12 col-md-10 col-lg-8 col-xl-8'">
+    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+      <span class="custom-select-sm">{{option.cDepartamento}}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

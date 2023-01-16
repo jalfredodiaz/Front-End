@@ -1,0 +1,10 @@
+<div class="text-center">
+  <img *ngIf="imagen !== ''" [src]="imagen" alt="Imagen Perfil" style="max-width: 440px; max-height: 500px;">
+  <input type="file" class="form-control-file mt-2" #inputFile (change)="seleccionarArchivo( $event )">
+  <div class="row d-flex justify-content-end mt-2">
+    <div class="w-25 mr-3">
+      <button *ngIf="imagen || imagen.length > 0" class="btn btn-outline-success form-control" type="button"
+        (click)="guardarImagen()">Cambiar Foto</button>
+    </div>
+  </div>
+</div>

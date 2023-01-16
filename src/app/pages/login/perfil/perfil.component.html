@@ -1,0 +1,71 @@
+<div class="text-center">
+  <ul class="navbar-nav my-lg-0">
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle quitar-flecha-dropdown" href="#" id="navbarDropdown" role="button"
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <img [src]="usuLogService.DatosUsuario.Foto" alt="" class="imagen-perfil">
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="nav-item">
+          <div class="perfil" style="padding-left: 1em;">
+            <div class="u-img">
+              <img class="imagen-perfil-lg pointer" [src]="usuLogService.DatosUsuario.Foto" alt="Foto Usuario"
+                (click)="cambiarImagen()">
+            </div>
+            <div>
+              <h4>{{ nick }}</h4>
+              <p class="text-muted">{{ email }}</p>
+            </div>
+          </div>
+        </a>
+        <a class="dropdown-item" style="cursor: pointer;" (click)="cambiarPassword()">
+          <i class="fas fa-key" style="font-size: 22px; padding-right: 0.5em;"></i> Cambiar Contraseña
+        </a>
+        <a class="dropdown-item" (click)="cerrarSesion()" style="cursor: pointer;">
+          <i class="fas fa-power-off" style="color: red; font-size: 22px; padding-right: 0.5em;"></i> Cerrar Sesón
+        </a>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="fondo-negro" [ngClass]="{'oculto': !mostrarCambiarImagen}">
+  <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cambiar Imagen Perfil"</h5>
+          <button type="button" class="close" aria-label="Cerrar" (click)="cerrarCambioImagen()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-cambiar-foto (cerrarVentana)="cerrarCambioImagen()"></app-cambiar-foto>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarCambioImagen()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="fondo-negro" [ngClass]="{'oculto': !mostrarCambiarPassword}">
+  <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Cambiar Contraseña</h5>
+          <button type="button" class="close" aria-label="Cerrar" (click)="cerrarCambioPassword()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <app-cambiar-password [mostrar]="mostrarCambiarPassword" (cerrarVentana)="cerrarCambioPassword()">
+          </app-cambiar-password>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="cerrarCambioPassword()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
