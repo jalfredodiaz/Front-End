@@ -2,6 +2,9 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.5.
 
+## Install
+Run `npm install` for install packages. After installing the packages, go to the "nodes_modules > sweetalert > typings" directory and edit the sweetalert.d.ts file and comment out the following line of code `const swal: SweetAlert;`. Esto se debe a un error en la libreria `"sweetalert": "^2.1.2",`.
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
