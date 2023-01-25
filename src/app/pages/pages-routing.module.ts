@@ -11,6 +11,7 @@ import { EmpleadoComponent } from './catalogos/empleado/empleado.component';
 import { PuestosComponent } from './catalogos/puestos/puestos.component';
 import { TipoPrestamoComponent } from './catalogos/tipo-prestamo/tipo-prestamo.component';
 import { ConsultaCorteDePrestamosComponent } from './consultas/consulta-corte-de-prestamos/consulta-corte-de-prestamos.component';
+import { ConsultaEmpleadosComponent } from './consultas/consulta-empleados/consulta-empleados.component';
 import { ConsultaEscalonadoComponent } from './consultas/consulta-escalonado/consulta-escalonado.component';
 import { ConsultaMovimientosCuentaComponent } from './consultas/consulta-movimientos-cuenta/consulta-movimientos-cuenta.component';
 import { ConsultaSolicitudPrestamosComponent } from './consultas/consulta-solicitud-prestamos/consulta-solicitud-prestamos.component';
@@ -84,6 +85,10 @@ const routes: Routes = [
       {
         path: 'Consultas/Escalonado', component: ConsultaEscalonadoComponent, canActivate: [AuthGuard],
         data: { opcion: 'ConsultaEscalonado' }
+      },
+      {
+        path: 'Consultas/Empleados', component: ConsultaEmpleadosComponent, canActivate: [AuthGuard],
+        data: { opcion: 'ConsultaEmpleados' }
       },
 
 

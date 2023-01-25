@@ -91,6 +91,7 @@ import { RegistroGastosIngresosCuentaAyudaComponent } from './capturas/registro-
 import { MatSelectModule } from '@angular/material/select';
 import { ConsultaEscalonadoComponent } from './consultas/consulta-escalonado/consulta-escalonado.component';
 import { PuestoAumentarSueldoComponent } from './catalogos/puestos/puesto-aumentar-sueldo/puesto-aumentar-sueldo.component';
+import { ConsultaEmpleadosComponent } from './consultas/consulta-empleados/consulta-empleados.component';
 
 
 @NgModule({
@@ -158,6 +159,7 @@ import { PuestoAumentarSueldoComponent } from './catalogos/puestos/puesto-aument
     RegistroGastosIngresosCuentaAyudaComponent,
     ConsultaEscalonadoComponent,
     PuestoAumentarSueldoComponent,
+    ConsultaEmpleadosComponent,
   ],
   imports: [
     CommonModule,

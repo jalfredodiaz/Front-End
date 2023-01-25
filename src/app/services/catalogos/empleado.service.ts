@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/commo
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { of, Subscription, tap, timer } from 'rxjs';
 import { EmpleadoArchivosModel } from 'src/app/models/empleado/empleado-archivos-model';
+import { EmpleadoConSueldo } from 'src/app/models/empleado/empleado-con-sueldo';
 import { EmpleadoModel } from 'src/app/models/empleado/empleado-model';
 import { EscalonadoModel } from 'src/app/models/empleado/escalonado-model';
 import { environment } from 'src/environments/environment';
@@ -29,6 +30,12 @@ export class EmpleadoService implements OnInit, OnDestroy  {
     const headers = new HttpHeaders().set('content-type', 'application/json; charset=utf-8');
 
     return this.http.get<EmpleadoModel[]>(this.urlApi + 'ObtenerEmpleados', { headers });
+  }
+
+  obtenerEmpleadoConSueldo() {
+    const headers = new HttpHeaders().set('content-type', 'application/json; charset=utf-8');
+
+    return this.http.get<EmpleadoConSueldo[]>(this.urlApi + 'ObtenerListadoConSueldo', { headers });
   }
 
   obtenerPorCodigo(codigo: number) {
